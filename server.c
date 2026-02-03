@@ -12,32 +12,34 @@
 
 #include "minitalk.h"
 
-void	server(int signal)
+void server(int signal)
 {
-	int		bit_count;
-	int		current;
+    static unsigned char current = 0;
+    static int bit_count = 0;
 
-	current = (current << 1) | (signal == SIGUSR2);
-	bit_count++;
-	if (bit_count == 8)
-	{
-		if (current == '\0')
-			write(1, "\n", 1);
-		else 
-			write(1, &current, 1);
-		bit_count = 0;
-		current = 0;
-	}
+    current = (current << 1) | (signal == SIGUSR2);
+    bit_count++;
+
+    if (bit_count == 8)
+    {
+        if (current == '\0')
+            write(1, "\n", 1);
+        else
+            write(1, &current, 1);
+
+        current = 0;
+        bit_count = 0;
+    }
 }
 
-int	main(void)
+int main(void)
 {
-	ft_putnbr(getpid());
-	write(1, "\n", 1);
+    ft_putnbr(getpid());
+    write(1, "\n", 1);
 
-	signal(SIGUSR1, server);
-	signal(SIGUSR2, server);
+    signal(SIGUSR1, server);
+    signal(SIGUSR2, server);
 
-	while (1)
-		pause();
+    while (1)
+        pause();
 }
