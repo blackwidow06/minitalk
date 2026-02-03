@@ -56,8 +56,10 @@ int		main(int argc, char *argv[])
 		return (1);
 
 	server_pid = ft_atoi(argv[1]);
+	if (server_pid <= 0)
+		return (0);
+	
 	message = argv[2];
-
 	send_message(server_pid, message);
 
 	return (0);
