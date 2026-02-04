@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <signal.h>
+# include <limits.h>
 
 /* client.c */
 void	send_bit(int server_pid, int bit);
@@ -27,5 +28,9 @@ void	server(int signal);
 /* utils.c */
 void	ft_putnbr(int nb);
 int		ft_atoi(const char *str);
+
+/* check.c */
+int check_pid(char *str);
+int check_pid_max(char *str);
 
 #endif
