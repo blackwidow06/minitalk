@@ -18,7 +18,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 # Sources
 SERVER_SRC = server.c utils.c
-CLIENT_SRC = client.c utils.c
+CLIENT_SRC = client.c utils.c check.c
 
 # Objets
 SERVER_OBJ = $(SERVER_SRC:.c=.o)
