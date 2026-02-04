@@ -18,6 +18,7 @@ void	send_bit(int server_pid, int bit)
 		kill(server_pid, SIGUSR1);
 	else
 		kill(server_pid, SIGUSR2);
+	usleep(200);
 }
 
 void 	send_char(int server_pid, char c)
@@ -54,13 +55,19 @@ int		main(int argc, char *argv[])
 
 	if (argc != 3)
 		return (1);
-
+	if (!check_pid(argv[1]) || !check_pid_max(argv[1]))
+	{
+		write(2, "Invalid PID\n", 12);
+		return (1);
+	}
 	server_pid = ft_atoi(argv[1]);
 	if (server_pid <= 0)
-		return (0);
-	
+	{
+		write(2, "Invalid PID\n", 12);
+		return (1);
+	}
 	message = argv[2];
 	send_message(server_pid, message);
-
 	return (0);
 }
+
